@@ -10,8 +10,19 @@ export default new Vuex.Store({
   },
   mutations: {
     setFirstData(state, { firstData }) {
-      console.log(firstData);
-      state.firstData = firstData;
+      if (!("itemId" in firstData[0])) {
+        // itemIdプロパティを持っていない場合番号を付与する
+        let i = 0;
+        for (let item of firstData) {
+          item.itemId = i++;
+        }
+      }
+      state.firstData = {
+        boxId: 0,
+        boxName: "firstData",
+        contents: firstData,
+      };
+      console.log(state.firstData);
       state.currentData = {};
     },
     setSavedData(state, { data }) {

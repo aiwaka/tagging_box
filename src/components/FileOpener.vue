@@ -59,10 +59,22 @@ export default {
     },
     setData(contents) {
       const data = JSON.parse(contents);
-      if ("firstData" in data) {
+      if (!Array.isArray(data)) {
+        alert(
+          "データの形式が誤っています。name属性を持つオブジェクトの配列である必要があります。"
+        );
+      }
+      // dataが初回形式のときと2回目以降の場合で分ける.
+      if ("boxId" in data[0]) {
         this.$store.commit("setSavedData", { data });
       } else {
-        this.$store.commit("setFirstData", { firstData: data });
+        if ("name" in data[0]) {
+          this.$store.commit("setFirstData", { firstData: data });
+        } else {
+          alert(
+            "データの形式が誤っています。name属性を持つオブジェクトの配列である必要があります。"
+          );
+        }
       }
     },
   },

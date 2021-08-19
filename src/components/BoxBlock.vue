@@ -1,14 +1,28 @@
 <template>
   <!-- モノを放り込むためのそれぞれの箱 -->
   <div id="box-block">
-    <object-block v-for="item of boxData.contents" :key="item.name" />
+    <item-block
+      v-for="item of boxData.contents"
+      :item="item"
+      :key="item.name"
+      draggable="true"
+    />
   </div>
 </template>
 
 <script>
-import ObjectBlock from "./ObjectBlock.vue";
+import ItemBlock from "./ItemBlock.vue";
 export default {
   props: ["boxData"],
-  components: { ObjectBlock },
+  components: { ItemBlock },
 };
 </script>
+
+<style>
+#box-block {
+  background-color: #999;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0.9rem;
+}
+</style>

@@ -28,12 +28,6 @@ export default {
   display: flex;
   flex-direction: column;
   overflow: scroll;
-}
-.box-column__container {
-  display: flex;
-  flex-wrap: wrap;
-  width: calc(50% - 1rem);
-  margin: 2rem 0.5rem;
-  background-color: #faf;
+  background-color: #c8f;
 }
 </style>
