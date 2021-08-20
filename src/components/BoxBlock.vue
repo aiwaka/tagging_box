@@ -8,8 +8,22 @@
     v-on:drop.stop="dropItem($event, boxData.boxId)"
   >
     <div class="box-block__toolbar">
-      <p>{{ boxData.boxName }}</p>
-
+      <p v-if="!inputtingNewBoxName">{{ boxData.boxName }}</p>
+      <template v-else>
+        <input v-model="newBoxName" />
+        <button v-on:click.prevent="renameBox(newBoxName)">決定</button>
+      </template>
+      <pull-down-menu v-on:menu-closed="inputtingNewBoxName = false">
+        <pull-down-menu-list
+          :list-disabled="isFirstBox"
+          v-on:list-clicked="removeBox"
+        >
+          この箱を削除する
+        </pull-down-menu-list>
+        <pull-down-menu-list v-on:list-clicked="inputNewBoxName">
+          名前を変更する
+        </pull-down-menu-list>
+      </pull-down-menu>
     </div>
     <div class="item-container">
       <item-block
@@ -24,15 +38,22 @@
 
 <script>
 import ItemBlock from "./ItemBlock.vue";
+import PullDownMenu from "./PullDownMenu.vue";
+import PullDownMenuList from "./PullDownMenuList.vue";
 export default {
+  components: { ItemBlock, PullDownMenu, PullDownMenuList },
   props: ["boxData"],
   data() {
     return {
       isDragOver: false,
+      inputtingNewBoxName: false,
+      newBoxName: "",
     };
   },
-  components: { ItemBlock },
   computed: {
+    isFirstBox() {
+      return this.boxData.boxId === 0;
+    },
     boxDataContents() {
       // boxIdが0のときはそのままcontentsを渡す.
       if (this.boxData.boxId === 0) {
@@ -70,6 +91,17 @@ export default {
       // const dragList = this.boxData.content.find((list) => list.id == dragId);
       // dragList.category = dropCategory;
     },
+    removeBox() {
+      this.$store.commit("removeBox", { boxId: this.boxData.boxId });
+    },
+    inputNewBoxName() {
+      this.newBoxName = this.boxData.boxName;
+      this.inputtingNewBoxName = true;
+    },
+    renameBox(newName) {
+      this.$store.commit("renameBox", { boxId: this.boxData.boxId, newName });
+      this.inputtingNewBoxName = false;
+    },
   },
 };
 </script>
@@ -86,6 +118,7 @@ export default {
 }
 .box-block__toolbar {
   display: flex;
+  justify-content: space-around;
 }
 .item-container {
   display: flex;

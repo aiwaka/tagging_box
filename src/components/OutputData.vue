@@ -1,11 +1,18 @@
 <template>
   <div class="output-data">
-    <button v-on:click="output">出力</button>
+    <pulldown-menu>
+      <pull-down-menu-list v-on:list-clicked="output">
+        出力
+      </pull-down-menu-list>
+    </pulldown-menu>
   </div>
 </template>
 
 <script>
+import PulldownMenu from "./PullDownMenu.vue";
+import PullDownMenuList from "./PullDownMenuList.vue";
 export default {
+  components: { PulldownMenu, PullDownMenuList },
   name: "OutputData",
   methods: {
     output() {

@@ -46,6 +46,23 @@ export default new Vuex.Store({
         contents: [],
       });
     },
+    removeBox(state, { boxId }) {
+      state.currentData = state.currentData.filter(
+        (box) => box.boxId !== boxId
+      );
+    },
+    renameBox(state, { boxId, newName }) {
+      let box;
+      if (boxId === 0) {
+        box = state.firstData;
+      } else {
+        box =
+          state.currentData[
+            state.currentData.findIndex((e) => e.boxId === boxId)
+          ];
+      }
+      box.boxName = newName;
+    },
 
     addItem(state, { toBoxId, itemId }) {
       const box =
