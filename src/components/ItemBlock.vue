@@ -30,11 +30,12 @@ export default {
 
 <style>
 .item-block {
-  margin: 0.2rem 0.6rem;
+  margin: 0.4rem 0.6rem;
 }
 .item-block__container {
+  border: 4px ridge #880;
   background-color: #ee2;
-  padding: 0.2rem 0.8rem;
-  margin: 0.7rem 0.4rem;
+  padding: 0.1rem 0.8rem;
+  margin: 0.2rem 0.4rem;
 }
 </style>
