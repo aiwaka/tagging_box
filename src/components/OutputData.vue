@@ -1,5 +1,5 @@
 <template>
-  <div id="output-data">
+  <div class="output-data">
     <button v-on:click="output">出力</button>
   </div>
 </template>

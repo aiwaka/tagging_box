@@ -1,6 +1,6 @@
 <template>
   <!-- 画面上部の、アプリ名や読み込み書き出しを行うメニューバー -->
-  <div id="menubar">
+  <div class="menubar">
     <h1>Tagging Box</h1>
     <div class="menubar__tools-container">
       <file-opener />
@@ -25,7 +25,7 @@ export default {
 </script>
 
 <style>
-#menubar {
+.menubar {
   width: calc(100% - 2rem);
   height: 10rem;
   margin: 0 1rem;

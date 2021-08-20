@@ -1,7 +1,7 @@
 <template>
   <!-- 必ずname属性を持つと約束するオブジェクトを読み込むコンポーネント -->
   <div
-    id="item-block"
+    class="item-block"
     draggable="true"
     v-on:dragstart="dragItem($event, item.itemId, boxId)"
   >
@@ -29,7 +29,7 @@ export default {
 </script>
 
 <style>
-#item-block {
+.item-block {
   margin: 0.2rem 0.6rem;
 }
 .item-block__container {

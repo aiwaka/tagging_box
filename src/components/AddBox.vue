@@ -1,5 +1,5 @@
 <template>
-  <div id="add-box">
+  <div class="add-box">
     <input v-model="newBoxName" placeholder="input new box name." />
     <p>id:{{ newBoxId }}</p>
     <button v-on:click="addNewBox(newBoxName)" :disabled="disabled">Add</button>

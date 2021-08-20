@@ -1,6 +1,6 @@
 <template>
   <!-- 自分で作れる箱が用意されるカラム（二列目（右）） -->
-  <div id="box-column">
+  <div class="box-column">
     <div>
       <h2>箱</h2>
     </div>
@@ -23,7 +23,7 @@ export default {
 </script>
 
 <style>
-#box-column {
+.box-column {
   width: 50%;
   display: flex;
   flex-direction: column;

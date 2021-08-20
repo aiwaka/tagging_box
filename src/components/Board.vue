@@ -1,6 +1,6 @@
 <template>
   <!-- 作業ボードコンポーネント -->
-  <div id="board">
+  <div class="board">
     <first-data-column />
     <box-column />
   </div>
@@ -18,7 +18,7 @@ export default {
 </script>
 
 <style>
-#board {
+.board {
   width: calc(100% - 1rem);
   height: calc(100vh - 14rem);
   margin: 0.4rem 0.5rem;

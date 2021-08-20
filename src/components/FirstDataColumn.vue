@@ -1,6 +1,6 @@
 <template>
   <!-- 元データが入った箱が置かれるカラム（一列目（左）） -->
-  <div id="first-data-column">
+  <div class="first-data-column">
     <div>
       <h2>元データ</h2>
     </div>
@@ -24,7 +24,7 @@ export default {
 </script>
 
 <style>
-#first-data-column {
+.first-data-column {
   width: 50%;
   display: flex;
   flex-direction: column;

@@ -1,13 +1,16 @@
 <template>
   <!-- モノを放り込むためのそれぞれの箱 -->
   <div
-    id="box-block"
+    class="box-block"
     :class="{ dragover: isDragOver }"
     v-on:dragover.prevent="onDrag('over')"
     v-on:dragleave="onDrag('leave')"
     v-on:drop.stop="dropItem($event, boxData.boxId)"
   >
-    <p>{{ boxData.boxName }}</p>
+    <div class="box-block__toolbar">
+      <p>{{ boxData.boxName }}</p>
+
+    </div>
     <div class="item-container">
       <item-block
         v-for="item of boxDataContents"
@@ -72,14 +75,17 @@ export default {
 </script>
 
 <style>
-#box-block {
+.box-block {
   background-color: #999;
   margin: 0.9rem;
   height: auto;
   min-height: 5rem;
 }
-#box-block.dragover {
+.box-block.dragover {
   background-color: #555;
+}
+.box-block__toolbar {
+  display: flex;
 }
 .item-container {
   display: flex;

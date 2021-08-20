@@ -1,6 +1,6 @@
 <template>
   <!-- ファイル読み込みコンポーネント -->
-  <div id="file-opener">
+  <div class="file-opener">
     <div
       class="input-field"
       :class="{ over: isDragOver }"
@@ -81,7 +81,7 @@ export default {
 </script>
 
 <style>
-#file-opener {
+.file-opener {
   background-color: #eee;
   width: 50%;
   height: auto;
