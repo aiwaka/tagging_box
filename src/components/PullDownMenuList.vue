@@ -28,8 +28,10 @@ export default {
 
 <style>
 .pull-down-menu-list {
+  z-index: 1000;
   border: 1px solid #333;
   background-color: #aaa;
+  cursor: pointer;
 }
 .pull-down-menu-list:hover {
   background-color: #fff;

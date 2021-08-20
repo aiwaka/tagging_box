@@ -1,6 +1,6 @@
 <template>
   <div class="output-data">
-    <pulldown-menu ref="menu">
+    <pulldown-menu ref="menu" :buttonText="'出力'">
       <pull-down-menu-list v-on:list-clicked="outputAsAppData">
         このアプリの形式で出力
       </pull-down-menu-list>
@@ -61,3 +61,9 @@ export default {
   },
 };
 </script>
+
+<style>
+.output-data {
+  width: 23%;
+}
+</style>

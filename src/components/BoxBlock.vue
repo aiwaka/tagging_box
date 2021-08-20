@@ -8,9 +8,9 @@
     v-on:drop.stop="dropItem($event, boxData.boxId)"
   >
     <div class="box-block__toolbar">
-      <p v-if="!inputtingNewBoxName">
-        {{ boxData.boxName }} [(debug)id:{{ boxData.boxId }}]
-      </p>
+      <div class="box-name" v-if="!inputtingNewBoxName">
+        {{ boxData.boxName }}
+      </div>
       <template v-else>
         <input v-model="newBoxName" />
         <button v-on:click.prevent="renameBox(newBoxName)">決定</button>
@@ -43,7 +43,9 @@
     </div>
     <!-- 折りたたまれている場合はプレビュー表示する. -->
     <div v-else class="item-container folded">
-      <div class="folded-item-thumbnail">x{{ boxDataContents.length }}</div>
+      <div v-if="boxDataContents.length !== 0" class="folded-item-thumbnail">
+        x{{ boxDataContents.length }}
+      </div>
     </div>
   </div>
 </template>
@@ -140,6 +142,7 @@ export default {
   justify-content: space-around;
 }
 .item-container {
+  z-index: 50;
   display: flex;
   flex-wrap: wrap;
 }
@@ -147,5 +150,12 @@ export default {
   background-color: #ee2;
   padding: 0.2rem 0.8rem;
   margin: 0.7rem 0.4rem;
+}
+.box-name {
+  background-color: #ddd;
+  border: 1px thick #222;
+  border-radius: 2px;
+  margin: 0.2rem auto;
+  padding: 0.2rem 0.3rem;
 }
 </style>
