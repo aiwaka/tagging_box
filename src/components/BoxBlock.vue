@@ -8,12 +8,14 @@
     v-on:drop.stop="dropItem($event, boxData.boxId)"
   >
     <div class="box-block__toolbar">
-      <p v-if="!inputtingNewBoxName">{{ boxData.boxName }}</p>
+      <p v-if="!inputtingNewBoxName">
+        {{ boxData.boxName }} [(debug)id:{{ boxData.boxId }}]
+      </p>
       <template v-else>
         <input v-model="newBoxName" />
         <button v-on:click.prevent="renameBox(newBoxName)">決定</button>
       </template>
-      <pull-down-menu v-on:menu-closed="inputtingNewBoxName = false">
+      <pull-down-menu ref="menu" v-on:menu-closed="inputtingNewBoxName = false">
         <pull-down-menu-list
           :list-disabled="isFirstBox"
           v-on:list-clicked="removeBox"
@@ -91,7 +93,11 @@ export default {
       // const dragList = this.boxData.content.find((list) => list.id == dragId);
       // dragList.category = dropCategory;
     },
+    closeMenu() {
+      this.$refs.menu.close();
+    },
     removeBox() {
+      this.closeMenu();
       this.$store.commit("removeBox", { boxId: this.boxData.boxId });
     },
     inputNewBoxName() {
@@ -101,6 +107,7 @@ export default {
     renameBox(newName) {
       this.$store.commit("renameBox", { boxId: this.boxData.boxId, newName });
       this.inputtingNewBoxName = false;
+      this.closeMenu();
     },
   },
 };
