@@ -75,6 +75,7 @@ export default {
 #box-block {
   background-color: #999;
   margin: 0.9rem;
+  height: auto;
   min-height: 5rem;
 }
 #box-block.dragover {
