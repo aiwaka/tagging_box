@@ -6,7 +6,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     fileLoaded: false,
-    firstData: {},
+    firstData: { boxId: 0, boxName: "firstData", contents: [] },
     currentData: [],
     nextBoxId: 1,
   },
@@ -45,14 +45,19 @@ export default new Vuex.Store({
     },
 
     addItem(state, { toBoxId, itemId }) {
-      const boxNum = state.currentData.findIndex((e) => e.boxId === toBoxId);
-      const box = state.currentData[boxNum];
+      const box =
+        state.currentData[
+          state.currentData.findIndex((e) => e.boxId === toBoxId)
+        ];
       box.contents.push(itemId);
       // 重複は取り除く.
       box.contents = box.contents.filter((e, i, self) => self.indexOf(e) === i);
     },
     removeItem(state, { fromBoxId, itemId }) {
-      const box = state.currentData.filter((e) => e.boxId === fromBoxId);
+      const box =
+        state.currentData[
+          state.currentData.findIndex((e) => e.boxId === fromBoxId)
+        ];
       box.contents = box.contents.filter((e) => e !== itemId);
     },
   },

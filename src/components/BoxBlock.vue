@@ -10,7 +10,7 @@
     <p>{{ boxData.boxName }}</p>
     <div class="item-container">
       <item-block
-        v-for="item of boxData.contents"
+        v-for="item of boxDataContents"
         :item="item"
         :boxId="boxData.boxId"
         :key="item.itemId"
@@ -31,8 +31,9 @@ export default {
   components: { ItemBlock },
   computed: {
     boxDataContents() {
+      // boxIdが0のときはそのままcontentsを渡す.
       if (this.boxData.boxId === 0) {
-        return this.boxData;
+        return this.boxData.contents;
       } else {
         const numSets = this.boxData.contents;
         const itemSets = [];

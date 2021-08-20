@@ -10,11 +10,9 @@
 
 <script>
 import BoxBlock from "./BoxBlock.vue";
-// import ObjectBlock from "./ObjectBlock.vue";
 export default {
   name: "FirstDataColumn",
   components: {
-    // ObjectBlock,
     BoxBlock,
   },
   computed: {
