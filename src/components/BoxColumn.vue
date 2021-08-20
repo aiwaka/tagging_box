@@ -15,7 +15,8 @@ import BoxBlock from "./BoxBlock.vue";
 export default {
   computed: {
     boxes() {
-      return this.$store.state.currentData;
+      const nonOriginalBoxes = this.$store.state.boxData.slice(1);
+      return nonOriginalBoxes;
     },
   },
   components: { BoxBlock },

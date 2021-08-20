@@ -60,8 +60,12 @@ export default {
     setData(contents) {
       const loadedData = JSON.parse(contents);
       // dataが初回形式のときと2回目以降の場合で分ける.
-      // dataとnextBoxIdプロパティが含まれていれば一度保存されたものと判断する.
-      if ("data" in loadedData && "nextBoxId" in loadedData) {
+      // itemData, boxData, nextBoxIdプロパティが含まれていれば一度保存されたものと判断する.
+      if (
+        "itemData" in loadedData &&
+        "boxData" in loadedData &&
+        "nextBoxId" in loadedData
+      ) {
         this.$store.commit("setSavedData", {
           loadedData,
           fileName: this.fileName,
@@ -69,7 +73,10 @@ export default {
         return;
       } else if ("name" in loadedData[0]) {
         // そうでなければ, オブジェクトにnameプロパティがあるか判断
-        this.$store.commit("setFirstData", { firstData: loadedData });
+        this.$store.commit("setFirstData", {
+          firstData: loadedData,
+          fileName: this.fileName,
+        });
       } else {
         alert(
           "データの形式が誤っています。name属性を持つオブジェクトの配列である必要があります。"

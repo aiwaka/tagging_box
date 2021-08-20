@@ -68,19 +68,12 @@ export default {
       return this.boxData.boxId === 0;
     },
     boxDataContents() {
-      // boxIdが0のときはそのままcontentsを渡す.
-      if (this.boxData.boxId === 0) {
-        return this.boxData.contents;
-      } else {
-        const numSets = this.boxData.contents;
-        const itemSets = [];
-        for (let num of numSets) {
-          itemSets.push(
-            this.$store.state.firstData.contents.find((e) => e.itemId === num)
-          );
-        }
-        return itemSets;
+      const numSets = this.boxData.contents;
+      const itemSets = [];
+      for (let num of numSets) {
+        itemSets.push(this.$store.state.itemData.find((e) => e.itemId === num));
       }
+      return itemSets;
     },
   },
   methods: {

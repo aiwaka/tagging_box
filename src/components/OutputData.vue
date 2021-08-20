@@ -1,7 +1,10 @@
 <template>
   <div class="output-data">
     <pulldown-menu>
-      <pull-down-menu-list v-on:list-clicked="output">
+      <pull-down-menu-list v-on:list-clicked="outputAsAppData">
+        出力
+      </pull-down-menu-list>
+      <pull-down-menu-list v-on:list-clicked="outputAsTaggedData">
         出力
       </pull-down-menu-list>
     </pulldown-menu>
@@ -15,16 +18,12 @@ export default {
   components: { PulldownMenu, PullDownMenuList },
   name: "OutputData",
   methods: {
-    output() {
-      const outputData = [this.$store.state.firstData];
-      for (let box of this.$store.state.currentData) {
-        outputData.push(box);
-      }
-      console.log(outputData);
+    outputAsAppData() {
       const contents = new Blob(
         [
           JSON.stringify({
-            data: outputData,
+            itemData: this.$store.state.itemData,
+            boxData: this.$store.state.boxData,
             nextBoxId: this.$store.state.nextBoxId,
           }),
         ],
@@ -35,6 +34,7 @@ export default {
       link.download = this.$store.state.fileName;
       link.click();
     },
+    outputAsTaggedData() {},
   },
 };
 </script>

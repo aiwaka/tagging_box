@@ -4,7 +4,7 @@
     <div>
       <h2>元データ</h2>
     </div>
-    <box-block :boxData="firstData" />
+    <box-block :boxData="originalItems" />
   </div>
 </template>
 
@@ -16,8 +16,8 @@ export default {
     BoxBlock,
   },
   computed: {
-    firstData() {
-      return this.$store.state.firstData;
+    originalItems() {
+      return this.$store.state.boxData[0];
     },
   },
 };
