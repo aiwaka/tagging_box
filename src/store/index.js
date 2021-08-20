@@ -5,8 +5,10 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    firstData: Array,
-    currentData: Object,
+    fileLoaded: false,
+    firstData: {},
+    currentData: [],
+    nextBoxId: 1,
   },
   mutations: {
     setFirstData(state, { firstData }) {
@@ -23,12 +25,35 @@ export default new Vuex.Store({
         contents: firstData,
       };
       console.log(state.firstData);
-      state.currentData = {};
+      state.currentData = [];
+      state.nextBoxId = 1;
+      state.fileLoaded = true;
     },
-    setSavedData(state, { data }) {
-      console.log(data);
-      state.firstData = data.firstData;
-      state.currentData = data.savedData;
+    setSavedData(state, { loadedData }) {
+      state.firstData = loadedData.data.shift();
+      state.currentData = loadedData.data;
+      state.nextBoxId = loadedData.nextBoxId;
+      state.fileLoaded = true;
+    },
+
+    addNewBox(state, { name }) {
+      state.currentData.push({
+        boxId: state.nextBoxId++,
+        boxName: name,
+        contents: [],
+      });
+    },
+
+    addItem(state, { toBoxId, itemId }) {
+      const boxNum = state.currentData.findIndex((e) => e.boxId === toBoxId);
+      const box = state.currentData[boxNum];
+      box.contents.push(itemId);
+      // 重複は取り除く.
+      box.contents = box.contents.filter((e, i, self) => self.indexOf(e) === i);
+    },
+    removeItem(state, { fromBoxId, itemId }) {
+      const box = state.currentData.filter((e) => e.boxId === fromBoxId);
+      box.contents = box.contents.filter((e) => e !== itemId);
     },
   },
   actions: {},

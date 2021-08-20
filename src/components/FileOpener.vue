@@ -58,18 +58,20 @@ export default {
       reader.readAsText(file);
     },
     setData(contents) {
-      const data = JSON.parse(contents);
-      if (!Array.isArray(data)) {
+      const loadedData = JSON.parse(contents);
+      if (!Array.isArray(loadedData)) {
         alert(
           "データの形式が誤っています。name属性を持つオブジェクトの配列である必要があります。"
         );
       }
       // dataが初回形式のときと2回目以降の場合で分ける.
-      if ("boxId" in data[0]) {
-        this.$store.commit("setSavedData", { data });
+      // nextBoxIdプロパティが含まれていれば一度保存されたものと判断する.
+      if ("nextBoxId" in loadedData) {
+        this.$store.commit("setSavedData", { loadedData });
       } else {
-        if ("name" in data[0]) {
-          this.$store.commit("setFirstData", { firstData: data });
+        // そうでなければ, オブジェクトにnameプロパティがあるか判断
+        if ("name" in loadedData[0]) {
+          this.$store.commit("setFirstData", { firstData: loadedData });
         } else {
           alert(
             "データの形式が誤っています。name属性を持つオブジェクトの配列である必要があります。"

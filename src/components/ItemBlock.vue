@@ -1,6 +1,10 @@
 <template>
   <!-- 必ずname属性を持つと約束するオブジェクトを読み込むコンポーネント -->
-  <div id="item-block">
+  <div
+    id="item-block"
+    draggable="true"
+    v-on:dragstart="dragItem($event, item.itemId, boxId)"
+  >
     <div class="item-block__container">
       <p>{{ item.name }}</p>
     </div>
@@ -10,7 +14,17 @@
 <script>
 export default {
   name: "ItemBlock",
-  props: ["item"],
+  props: ["item", "boxId"],
+  methods: {
+    dragItem(event, itemId, boxId) {
+      event.dataTransfer.effectAllowed = "move";
+      event.dataTransfer.dropEffect = "move";
+      event.dataTransfer.setData(
+        "text/plain",
+        JSON.stringify({ itemId, fromBoxId: boxId })
+      );
+    },
+  },
 };
 </script>
 
