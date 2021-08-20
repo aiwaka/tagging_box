@@ -25,15 +25,25 @@
         <pull-down-menu-list v-on:list-clicked="inputNewBoxName">
           名前を変更する
         </pull-down-menu-list>
+        <pull-down-menu-list v-if="folded" v-on:list-clicked="unfoldBox">
+          展開する
+        </pull-down-menu-list>
+        <pull-down-menu-list v-else v-on:list-clicked="foldBox">
+          折りたたむ
+        </pull-down-menu-list>
       </pull-down-menu>
     </div>
-    <div class="item-container">
+    <div v-if="!folded" class="item-container">
       <item-block
         v-for="item of boxDataContents"
         :item="item"
         :boxId="boxData.boxId"
         :key="item.itemId"
       />
+    </div>
+    <!-- 折りたたまれている場合はプレビュー表示する. -->
+    <div v-else class="item-container folded">
+      <div class="folded-item-thumbnail">x{{ boxDataContents.length }}</div>
     </div>
   </div>
 </template>
@@ -50,6 +60,7 @@ export default {
       isDragOver: false,
       inputtingNewBoxName: false,
       newBoxName: "",
+      folded: false,
     };
   },
   computed: {
@@ -96,6 +107,14 @@ export default {
     closeMenu() {
       this.$refs.menu.close();
     },
+    foldBox() {
+      this.folded = true;
+      this.closeMenu();
+    },
+    unfoldBox() {
+      this.folded = false;
+      this.closeMenu();
+    },
     removeBox() {
       this.closeMenu();
       this.$store.commit("removeBox", { boxId: this.boxData.boxId });
@@ -130,5 +149,10 @@ export default {
 .item-container {
   display: flex;
   flex-wrap: wrap;
+}
+.folded-item-thumbnail {
+  background-color: #ee2;
+  padding: 0.2rem 0.8rem;
+  margin: 0.7rem 0.4rem;
 }
 </style>
