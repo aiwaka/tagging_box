@@ -12,7 +12,7 @@
       <p v-if="!uploadedJSON">
         クリックして読み込か、ドラッグアンドドロップしてください。
       </p>
-      <p v-else>{{ file_name }}を読み込みました。</p>
+      <p v-else>{{ fileName }}を読み込みました。</p>
     </div>
   </div>
 </template>
@@ -23,7 +23,7 @@ export default {
     return {
       isDragOver: false,
       uploadedJSON: "",
-      file_name: "",
+      fileName: "",
     };
   },
   methods: {
@@ -47,7 +47,7 @@ export default {
         return;
       }
       this.createData(files[0]);
-      this.file_name = files[0].name;
+      this.fileName = files[0].name;
     },
     createData(file) {
       const reader = new FileReader();
@@ -59,24 +59,21 @@ export default {
     },
     setData(contents) {
       const loadedData = JSON.parse(contents);
-      if (!Array.isArray(loadedData)) {
+      // dataが初回形式のときと2回目以降の場合で分ける.
+      // dataとnextBoxIdプロパティが含まれていれば一度保存されたものと判断する.
+      if ("data" in loadedData && "nextBoxId" in loadedData) {
+        this.$store.commit("setSavedData", {
+          loadedData,
+          fileName: this.fileName,
+        });
+        return;
+      } else if ("name" in loadedData[0]) {
+        // そうでなければ, オブジェクトにnameプロパティがあるか判断
+        this.$store.commit("setFirstData", { firstData: loadedData });
+      } else {
         alert(
           "データの形式が誤っています。name属性を持つオブジェクトの配列である必要があります。"
         );
-      }
-      // dataが初回形式のときと2回目以降の場合で分ける.
-      // nextBoxIdプロパティが含まれていれば一度保存されたものと判断する.
-      if ("nextBoxId" in loadedData) {
-        this.$store.commit("setSavedData", { loadedData });
-      } else {
-        // そうでなければ, オブジェクトにnameプロパティがあるか判断
-        if ("name" in loadedData[0]) {
-          this.$store.commit("setFirstData", { firstData: loadedData });
-        } else {
-          alert(
-            "データの形式が誤っています。name属性を持つオブジェクトの配列である必要があります。"
-          );
-        }
       }
     },
   },

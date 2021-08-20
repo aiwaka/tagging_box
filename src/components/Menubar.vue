@@ -4,7 +4,8 @@
     <h1>Tagging Box</h1>
     <div class="menubar__tools-container">
       <file-opener />
-    <add-box />
+      <add-box />
+      <output-data />
     </div>
   </div>
 </template>
@@ -12,11 +13,13 @@
 <script>
 import FileOpener from "./FileOpener.vue";
 import AddBox from "./AddBox.vue";
+import OutputData from "./OutputData.vue";
 export default {
   name: "Menubar",
   components: {
     FileOpener,
     AddBox,
+    OutputData,
   },
 };
 </script>

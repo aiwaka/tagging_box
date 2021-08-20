@@ -9,6 +9,7 @@ export default new Vuex.Store({
     firstData: { boxId: 0, boxName: "firstData", contents: [] },
     currentData: [],
     nextBoxId: 1,
+    fileName: "output.json",
   },
   mutations: {
     setFirstData(state, { firstData }) {
@@ -28,12 +29,14 @@ export default new Vuex.Store({
       state.currentData = [];
       state.nextBoxId = 1;
       state.fileLoaded = true;
+      state.fileName = "output.json";
     },
-    setSavedData(state, { loadedData }) {
+    setSavedData(state, { loadedData, fileName }) {
       state.firstData = loadedData.data.shift();
       state.currentData = loadedData.data;
       state.nextBoxId = loadedData.nextBoxId;
       state.fileLoaded = true;
+      state.fileName = fileName;
     },
 
     addNewBox(state, { name }) {
