@@ -62,6 +62,20 @@ export default new Vuex.Store({
       state.boxData[state.boxData.findIndex((e) => e.boxId === boxId)].boxName =
         newName;
     },
+    swapBox(state, { fromBoxId, toBoxId }) {
+      const fromIdx = state.boxData.findIndex((e) => e.boxId === fromBoxId);
+      const toIdx = state.boxData.findIndex((e) => e.boxId === toBoxId);
+      if (fromIdx === -1 || toIdx === -1) {
+        return;
+      }
+      state.boxData = state.boxData.reduce(
+        (acc, cur, i, src) => [
+          ...acc,
+          i === fromIdx ? src[toIdx] : i === toIdx ? src[fromIdx] : cur,
+        ],
+        []
+      );
+    },
 
     addItem(state, { toBoxId, itemId }) {
       const box =

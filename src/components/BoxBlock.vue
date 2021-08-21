@@ -31,6 +31,18 @@
         <pull-down-menu-list v-else v-on:list-clicked="foldBox">
           折りたたむ
         </pull-down-menu-list>
+        <pull-down-menu-list
+          :listDisabled="isFirstBox || isMostUpperBox"
+          v-on:list-clicked="swapBoxWithUpper"
+        >
+          上の箱と入れ替える
+        </pull-down-menu-list>
+        <pull-down-menu-list
+          :listDisabled="isFirstBox || isMostBelowBox"
+          v-on:list-clicked="swapBoxWithBelow"
+        >
+          下の箱と入れ替える
+        </pull-down-menu-list>
       </pull-down-menu>
     </div>
     <div v-if="!folded" class="item-container">
@@ -66,8 +78,19 @@ export default {
     };
   },
   computed: {
+    thisBoxIdx() {
+      return this.$store.state.boxData.findIndex(
+        (e) => e.boxId === this.boxData.boxId
+      );
+    },
     isFirstBox() {
-      return this.boxData.boxId === 0;
+      return this.thisBoxIdx === 0;
+    },
+    isMostUpperBox() {
+      return this.thisBoxIdx === 1;
+    },
+    isMostBelowBox() {
+      return this.thisBoxIdx === this.$store.state.boxData.length - 1;
     },
     boxDataContents() {
       const numSets = this.boxData.contents;
@@ -121,6 +144,16 @@ export default {
     renameBox(newName) {
       this.$store.commit("renameBox", { boxId: this.boxData.boxId, newName });
       this.inputtingNewBoxName = false;
+      this.closeMenu();
+    },
+    swapBoxWithUpper() {
+      const toBoxId = this.$store.state.boxData[this.thisBoxIdx - 1].boxId;
+      this.$store.commit("swapBox", { fromBoxId: this.boxData.boxId, toBoxId });
+      this.closeMenu();
+    },
+    swapBoxWithBelow() {
+      const toBoxId = this.$store.state.boxData[this.thisBoxIdx + 1].boxId;
+      this.$store.commit("swapBox", { fromBoxId: this.boxData.boxId, toBoxId });
       this.closeMenu();
     },
   },
