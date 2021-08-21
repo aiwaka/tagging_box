@@ -11,10 +11,10 @@
       <div class="box-name" v-if="!inputtingNewBoxName">
         {{ boxData.boxName }}
       </div>
-      <template v-else>
-        <input v-model="newBoxName" />
+      <div class="box-name" v-else>
+        <input class="box-name" v-model="newBoxName" />
         <button v-on:click.prevent="renameBox(newBoxName)">決定</button>
-      </template>
+      </div>
       <pull-down-menu ref="menu" v-on:menu-closed="inputtingNewBoxName = false">
         <pull-down-menu-list
           :list-disabled="isFirstBox"
@@ -178,10 +178,13 @@ export default {
 
 <style>
 .box-block {
-  background-color: #999;
+  background-color: #5d7;
   margin: 0.9rem;
   height: auto;
   min-height: 5rem;
+  position: relative;
+  border-top: 5px solid #555;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.22);
 }
 .box-block.dragover {
   background-color: #555;
@@ -202,7 +205,7 @@ export default {
 }
 .box-name {
   background-color: #ddd;
-  border: 1px thick #222;
+  border: 3px double #222;
   border-radius: 2px;
   margin: 0.2rem auto;
   padding: 0.2rem 0.3rem;

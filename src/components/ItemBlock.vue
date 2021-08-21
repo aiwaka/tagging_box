@@ -43,7 +43,7 @@ export default {
 
 <style>
 .item-block {
-  margin: 0.4rem 0.6rem;
+  margin: 0.3rem 0.5rem;
 }
 .item-block.small {
   width: 3.5rem;
@@ -60,7 +60,7 @@ export default {
 .item-block__container {
   border: 4px ridge #880;
   background-color: #ee2;
-  padding: 0.1rem 0.8rem;
+  padding: 0.1rem 0.6rem;
   margin: 0.2rem 0.4rem;
 }
 .small .item-block__container {
