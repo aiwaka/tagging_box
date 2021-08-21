@@ -90,7 +90,7 @@ export default {
 <style>
 .file-opener {
   background-color: #eee;
-  width: 50%;
+  width: 25%;
   height: auto;
   display: flex;
   justify-content: center;
