@@ -147,7 +147,11 @@ export default {
     },
     removeBox() {
       this.closeMenu();
-      this.$store.commit("removeBox", { boxId: this.boxData.boxId });
+      if (
+        confirm("'" + this.boxData.boxName + "'を削除してもよろしいですか？")
+      ) {
+        this.$store.commit("removeBox", { boxId: this.boxData.boxId });
+      }
     },
     inputNewBoxName() {
       this.newBoxName = this.boxData.boxName;
