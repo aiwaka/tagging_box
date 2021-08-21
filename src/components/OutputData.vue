@@ -36,18 +36,21 @@ export default {
       alert(
         "ここで書き出されたファイルは再読み込みできません。再度作業をする際は必ずこのアプリの形式で保存してください。"
       );
-      const itemArray = [];
-      console.log(this.$store.state.itemData);
+      const data = [];
       for (let item of this.$store.state.itemData) {
-        const itemData = new Object({ name: item.name, tags: [] });
+        const itemData = Object.assign(item, { tags: [] });
         for (let box of this.$store.state.boxData.slice(1)) {
           if (box.contents.indexOf(item.itemId) !== -1) {
             itemData.tags.push(box.boxName);
           }
         }
-        itemArray.push(itemData);
+        data.push(itemData);
       }
-      const contents = new Blob([JSON.stringify(itemArray)], {
+      const tags = [];
+      for (let box of this.$store.state.boxData.slice(1)) {
+        tags.push(box.boxName);
+      }
+      const contents = new Blob([JSON.stringify({ data, tags })], {
         type: "text/plain",
       });
       this.downloadFile(contents);
