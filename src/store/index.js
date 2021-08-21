@@ -11,6 +11,7 @@ export default new Vuex.Store({
     itemData: [],
     boxData: [{ boxId: 0, boxName: "init", contents: [] }],
     nextBoxId: 1,
+    foldedBox: [false],
     fileName: "output.json",
   },
   mutations: {
@@ -42,6 +43,7 @@ export default new Vuex.Store({
         },
       ];
       state.nextBoxId = 1;
+      state.foldedBox = [false];
       state.fileLoaded = true;
       state.fileName = "output.json";
       console.log(state.itemData);
@@ -51,6 +53,7 @@ export default new Vuex.Store({
       state.itemData = loadedData.itemData;
       state.boxData = loadedData.boxData;
       state.nextBoxId = loadedData.nextBoxId;
+      state.foldedBox = loadedData.foldedBox;
       state.fileLoaded = true;
       state.fileName = fileName;
     },
@@ -61,10 +64,13 @@ export default new Vuex.Store({
         boxName: name,
         contents: [],
       });
+      state.foldedBox.push(false);
     },
     removeBox(state, { boxId }) {
       if (boxId !== 0) {
+        const boxIdx = state.boxData.findIndex((e) => e.boxId === boxId);
         state.boxData = state.boxData.filter((box) => box.boxId !== boxId);
+        state.foldedBox.splice(boxIdx, 1);
       }
     },
     renameBox(state, { boxId, newName }) {
@@ -83,6 +89,27 @@ export default new Vuex.Store({
           i === fromIdx ? src[toIdx] : i === toIdx ? src[fromIdx] : cur,
         ],
         []
+      );
+      state.foldedBox = state.foldedBox.reduce(
+        (acc, cur, i, src) => [
+          ...acc,
+          i === fromIdx ? src[toIdx] : i === toIdx ? src[fromIdx] : cur,
+        ],
+        []
+      );
+    },
+    foldBox(state, { boxId }) {
+      state.foldedBox.splice(
+        state.boxData.findIndex((e) => e.boxId === boxId),
+        1,
+        true
+      );
+    },
+    unfoldBox(state, { boxId }) {
+      state.foldedBox.splice(
+        state.boxData.findIndex((e) => e.boxId === boxId),
+        1,
+        false
       );
     },
 

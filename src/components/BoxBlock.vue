@@ -74,7 +74,6 @@ export default {
       isDragOver: false,
       inputtingNewBoxName: false,
       newBoxName: "",
-      folded: false,
     };
   },
   computed: {
@@ -101,6 +100,9 @@ export default {
     },
     isMostBelowBox() {
       return this.thisBoxIdx === this.$store.state.boxData.length - 1;
+    },
+    folded() {
+      return this.$store.state.foldedBox[this.thisBoxIdx];
     },
     boxDataContents() {
       const numSets = this.boxData.contents;
@@ -136,11 +138,11 @@ export default {
       this.$refs.menu.close();
     },
     foldBox() {
-      this.folded = true;
+      this.$store.commit("foldBox", { boxId: this.boxData.boxId });
       this.closeMenu();
     },
     unfoldBox() {
-      this.folded = false;
+      this.$store.commit("unfoldBox", { boxId: this.boxData.boxId });
       this.closeMenu();
     },
     removeBox() {
