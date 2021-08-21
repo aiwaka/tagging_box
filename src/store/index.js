@@ -6,12 +6,21 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     fileLoaded: false,
+    itemViewSize: 1,
+    boxViewSize: 1,
     itemData: [],
     boxData: [{ boxId: 0, boxName: "init", contents: [] }],
     nextBoxId: 1,
     fileName: "output.json",
   },
   mutations: {
+    setItemViewSize(state, { value }) {
+      state.itemViewSize = value;
+    },
+    setBoxViewSize(state, { value }) {
+      state.boxViewSize = value;
+    },
+
     setFirstData(state, { firstData, fileName }) {
       if (!("itemId" in firstData[0])) {
         // itemIdプロパティを持っていない場合番号を付与する

@@ -78,6 +78,16 @@ export default {
     };
   },
   computed: {
+    boxViewSize() {
+      return this.$store.state.itemViewSize;
+    },
+    viewSizeClass() {
+      return {
+        small: this.boxViewSize === 0,
+        middle: this.boxViewSize === 1,
+        large: this.boxViewSize === 2,
+      };
+    },
     thisBoxIdx() {
       return this.$store.state.boxData.findIndex(
         (e) => e.boxId === this.boxData.boxId

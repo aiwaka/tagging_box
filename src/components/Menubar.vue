@@ -1,11 +1,11 @@
 <template>
   <!-- 画面上部の、アプリ名や読み込み書き出しを行うメニューバー -->
   <div class="menubar">
-    <h1>Tagging Box</h1>
     <div class="menubar__tools-container">
       <file-opener />
       <add-box />
       <output-data />
+      <view-size-switch />
     </div>
   </div>
 </template>
@@ -14,12 +14,14 @@
 import FileOpener from "./FileOpener.vue";
 import AddBox from "./AddBox.vue";
 import OutputData from "./OutputData.vue";
+import ViewSizeSwitch from "./ViewSizeSwitch.vue";
 export default {
   name: "Menubar",
   components: {
     FileOpener,
     AddBox,
     OutputData,
+    ViewSizeSwitch,
   },
 };
 </script>

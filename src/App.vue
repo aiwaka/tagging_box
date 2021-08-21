@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <h1>Tagging Box</h1>
     <menubar />
     <!-- <img alt="Vue logo" src="./assets/logo.png" /> -->
     <!-- <HelloWorld msg="Welcome to Your Vue.js App" /> -->
