@@ -9,9 +9,8 @@ export default new Vuex.Store({
     itemViewSize: 1,
     boxViewSize: 1,
     itemData: [],
-    boxData: [{ boxId: 0, boxName: "init", contents: [] }],
+    boxData: [{ boxId: 0, boxName: "init", contents: [], folded: false }],
     nextBoxId: 1,
-    foldedBox: [false],
     fileName: "output.json",
   },
   mutations: {
@@ -40,20 +39,17 @@ export default new Vuex.Store({
           boxId: 0,
           boxName: fileName,
           contents: idArray,
+          folded: false,
         },
       ];
       state.nextBoxId = 1;
-      state.foldedBox = [false];
       state.fileLoaded = true;
       state.fileName = "output.json";
-      console.log(state.itemData);
-      console.log(state.boxData);
     },
     setSavedData(state, { loadedData, fileName }) {
       state.itemData = loadedData.itemData;
       state.boxData = loadedData.boxData;
       state.nextBoxId = loadedData.nextBoxId;
-      state.foldedBox = loadedData.foldedBox;
       state.fileLoaded = true;
       state.fileName = fileName;
     },
@@ -63,8 +59,8 @@ export default new Vuex.Store({
         boxId: state.nextBoxId++,
         boxName: name,
         contents: [],
+        folded: false,
       });
-      state.foldedBox.push(false);
     },
     removeBox(state, { boxId }) {
       if (boxId !== 0) {
@@ -90,27 +86,16 @@ export default new Vuex.Store({
         ],
         []
       );
-      state.foldedBox = state.foldedBox.reduce(
-        (acc, cur, i, src) => [
-          ...acc,
-          i === fromIdx ? src[toIdx] : i === toIdx ? src[fromIdx] : cur,
-        ],
-        []
-      );
     },
     foldBox(state, { boxId }) {
-      state.foldedBox.splice(
-        state.boxData.findIndex((e) => e.boxId === boxId),
-        1,
-        true
-      );
+      state.boxData[
+        state.boxData.findIndex((e) => e.boxId === boxId)
+      ].folded = true;
     },
     unfoldBox(state, { boxId }) {
-      state.foldedBox.splice(
-        state.boxData.findIndex((e) => e.boxId === boxId),
-        1,
-        false
-      );
+      state.boxData[
+        state.boxData.findIndex((e) => e.boxId === boxId)
+      ].folded = false;
     },
 
     addItem(state, { toBoxId, itemId }) {

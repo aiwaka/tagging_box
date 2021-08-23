@@ -102,7 +102,7 @@ export default {
       return this.thisBoxIdx === this.$store.state.boxData.length - 1;
     },
     folded() {
-      return this.$store.state.foldedBox[this.thisBoxIdx];
+      return this.boxData.folded;
     },
     boxDataContents() {
       const numSets = this.boxData.contents;

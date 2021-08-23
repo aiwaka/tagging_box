@@ -25,7 +25,6 @@ export default {
             itemData: this.$store.state.itemData,
             boxData: this.$store.state.boxData,
             nextBoxId: this.$store.state.nextBoxId,
-            foldedBox: this.$store.state.foldedBox,
           }),
         ],
         { type: "text/plain" }
