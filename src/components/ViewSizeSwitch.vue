@@ -28,6 +28,34 @@
         </div>
       </div>
     </div>
+    <div class="switch-container">
+      <h3>小テキスト表示</h3>
+      <div class="switch-box">
+        <div
+          v-for="(text, index) of onOffText"
+          class="size-button"
+          :class="{ active: smallTextView === index }"
+          :key="index"
+          v-on:click.prevent="setSmallTextView(index)"
+        >
+          {{ text }}
+        </div>
+      </div>
+    </div>
+    <div class="switch-container">
+      <h3>説明文表示</h3>
+      <div class="switch-box">
+        <div
+          v-for="(text, index) of onOffText"
+          class="size-button"
+          :class="{ active: descView === index }"
+          :key="index"
+          v-on:click.prevent="setDescView(index)"
+        >
+          {{ text }}
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -37,6 +65,7 @@ export default {
   data() {
     return {
       labelText: ["小", "中", "大"],
+      onOffText: ["OFF", "ON"],
     };
   },
   computed: {
@@ -46,6 +75,12 @@ export default {
     activeBoxSize() {
       return this.$store.state.boxViewSize;
     },
+    smallTextView() {
+      return this.$store.state.smallTextView;
+    },
+    descView() {
+      return this.$store.state.descView;
+    },
   },
   methods: {
     setItemViewSize(value) {
@@ -53,6 +88,12 @@ export default {
     },
     setBoxViewSize(value) {
       this.$store.commit("setBoxViewSize", { value });
+    },
+    setSmallTextView(value) {
+      this.$store.commit("setSmallTextView", { value });
+    },
+    setDescView(value) {
+      this.$store.commit("setDescView", { value });
     },
   },
 };
@@ -65,6 +106,8 @@ h3 {
 .view-size-switch {
   display: flex;
   flex-direction: column;
+  flex-wrap: wrap;
+  height: 100%;
 }
 .switch-container {
   display: flex;

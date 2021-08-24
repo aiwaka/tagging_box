@@ -8,6 +8,8 @@ export default new Vuex.Store({
     fileLoaded: false,
     itemViewSize: 1,
     boxViewSize: 1,
+    smallTextView: 1,
+    descView: 0,
     itemData: [],
     boxData: [{ boxId: 0, boxName: "init", contents: [], folded: false }],
     nextBoxId: 1,
@@ -19,6 +21,12 @@ export default new Vuex.Store({
     },
     setBoxViewSize(state, { value }) {
       state.boxViewSize = value;
+    },
+    setSmallTextView(state, { value }) {
+      state.smallTextView = value;
+    },
+    setDescView(state, { value }) {
+      state.descView = value;
     },
 
     setFirstData(state, { firstData, fileName }) {

@@ -7,7 +7,15 @@
     :class="viewSizeClass"
   >
     <div class="item-block__container">
-      <p>{{ item.name }}</p>
+      <div>
+        <p v-if="existSmallText && smallTextViewFlag" class="small-text">
+          {{ item.smallText }}
+        </p>
+        <p>{{ item.name }}</p>
+      </div>
+      <div v-if="existDesc && descViewFlag" class="desc-text">
+        {{ item.description }}
+      </div>
     </div>
   </div>
 </template>
@@ -26,6 +34,18 @@ export default {
         middle: this.itemViewSize === 1,
         large: this.itemViewSize === 2,
       };
+    },
+    existSmallText() {
+      return "smallText" in this.item;
+    },
+    smallTextViewFlag() {
+      return this.$store.state.smallTextView === 1;
+    },
+    existDesc() {
+      return "description" in this.item;
+    },
+    descViewFlag() {
+      return this.$store.state.descView === 1;
     },
   },
   methods: {
@@ -66,5 +86,12 @@ export default {
 .small .item-block__container {
   padding: 0px;
   margin: 0.1rem 0.1rem;
+}
+.item-block__container div p {
+  margin: 0;
+}
+.small-text {
+  font-size: 60%;
+  margin-bottom: 0;
 }
 </style>
